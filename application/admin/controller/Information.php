@@ -73,16 +73,20 @@ class Information extends Base
             $rule=[
                 'info_title|标题'=>'require',
                 'info_type|信息分类'=>'require',
+                'abstract|简介'=>'require|min:1|max:150',
             ];
             $back_rule=[
                 'info_title'=>'标题不能为空！',
                 'info_type'=>'请选择一个分类！',
+                'abstract.require'=>'简介栏为空！',
+                'abstract'=>'请输入一段少于150字的内容简介！',
             ];
             $result=$this->validate($data,$rule,$back_rule);
             if ($result===true){
                     if (Informations::create([
                         'info_type'=>$data['info_type'],
                         'info_title'=>$data['info_title'],
+                        'abstract'=>$data['abstract'],
                         'info_content'=>$data['info_content'],
                         'info_img'=>empty($data['info_img']) ? '':$data['info_img'],
                         'create_time'=>time(),
@@ -122,10 +126,13 @@ class Information extends Base
             $rule=[
                 'info_title|标题'=>'require',
                 'info_type|信息分类'=>'require',
+                'abstract|简介'=>'require|min:1|max:150',
             ];
             $back_rule=[
                 'info_title'=>'标题不能为空！',
                 'info_type'=>'请选择一个分类！',
+                'abstract.require'=>'简介栏为空！',
+                'abstract'=>'请输入一段少于150字的内容简介！',
             ];
             $result=$this->validate($data,$rule,$back_rule);
             if ($result===true){
@@ -133,6 +140,7 @@ class Information extends Base
                 $info=Informations::where('id',$id)->find();
                 if ($info['info_type']==$data['info_type']&&
                     $info['info_title']==$data['info_title']&&
+                    $info['abstract']==$data['abstract']&&
                     $info['info_content']==$data['info_content']&&
                     $info['info_img']==$data['info_img'])
                 {
@@ -142,6 +150,7 @@ class Information extends Base
                     if (Informations::update([
                         'info_type'=>$data['info_type'],
                         'info_title'=>$data['info_title'], 
+                        'abstract'=>$data['abstract'],
                         'info_content'=>$data['info_content'],
                         'info_img'=>$data['info_img'],
                         'default'=>0, 

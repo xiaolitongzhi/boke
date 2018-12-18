@@ -28,8 +28,8 @@ class Consultation extends Controller
         $init_arr[] = ['state','=',1];
         if ($search_title = Request::param('search_title')){  $arr[] = ['info_title','like',"%{$search_title}%"];}
 
-        $page = Request::param('page') ?? '1' ;
-        $limit = Request::param('limit') ?? '10' ;
+        $page =   empty(Request::param('page')) ? 1: Request::param('page');
+        $limit =  empty(Request::param('limit')) ? 10: Request::param('limit');
         if($page == 1){ $page = 0; }else{ $page = (($page-1)*$limit); }
 
         $arr = array_merge($init_arr,$arr,$res_arr);
@@ -74,12 +74,13 @@ class Consultation extends Controller
 
                     //本条
                     $info_type = $data['info_type'];
+                    $info_abstract = $data['abstract'];
                     $info_title = $data['info_title'];
                     $info_content = $data['info_content'];
                     $info_img = $data['info_img'];
                     $create_time = $data['create_time'];
 
-                    $data=compact('info_type','info_title','info_content','info_img','create_time','nextId','nextTielt','upId','upTielt');
+                    $data=compact('info_type','info_title','info_abstract','info_content','info_img','create_time','nextId','nextTielt','upId','upTielt');
                 }
             }
 

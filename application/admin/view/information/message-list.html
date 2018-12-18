@@ -46,6 +46,7 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>id</th>
+            <th>封面图</th>
             <th>信息标题</th>
             <th>信息类型</th>
             <th>发布时间</th>
@@ -60,7 +61,8 @@
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
             <td>{$val.id}</td>
-            <td>{$val.info_title}</td>
+            <td><img src="{$val.info_img}" alt="" height="50px;"></td>
+            <td><span title="{$val.abstract}">{$val.info_title}</span></td>
             <td>{$val.info_type}</td>
             <td>{$val.create_time}</td>
             <td class="td-status">
