@@ -58,7 +58,7 @@
         </form>
     </div>
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="x_admin_show('已删除用户表','{:url("Users/del_lists")}')"><i class="layui-icon"></i>已删除</button>
+        <button class="layui-btn layui-btn-danger" onclick="x_admin_show('已删除用户表','{:url("Users/del_lists")}')"><i class="layui-icon"></i>回收站</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','{:url("Users/create")}',600,400)"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
     </xblock>
@@ -95,6 +95,7 @@
                 {else}
                     <span class="layui-btn layui-btn-sm layui-btn-danger">已禁用</span>
                 {/if}
+            </td>
 
             <td class="td-manage">
                 {if $v.state==1}

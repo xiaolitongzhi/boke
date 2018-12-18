@@ -38,6 +38,7 @@
 		<button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
 		<span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
 	</xblock>
+
 	<table class="layui-table">
 		<thead>
 		<tr>
@@ -66,22 +67,31 @@
 			<td>{$v.type_id}</td>
 			<td>{$v.username}</td>
 			<td>{$v.phone}</td>
-			<td>
+			<td class="td-status">
 				{if $v.state == 1}
 				<span class="layui-badge layui-bg-green">在职</span>
 				{elseif $v.state==0}
 				<span class="layui-badge">离职</span>
-				{else}
-				<span class="layui-badge">其他</span>
 				{/if}
-			</td>
+			</td>>
+
 			<td>{$v.create_time}</td>
 
-
 			<td class="td-manage">
+				{if $v.state==1}
+				<a onclick="member_stop(this,'{$v.id}')" href="javascript:;" title="转离职">
+					<i class="layui-icon"></i>
+				</a>
+				{else}
+				<a onclick="member_start(this,'{$v.id}')" href="javascript:;"  title="转在职">
+					<i class="layui-icon">&#xe601;</i>
+				</a>
+				{/if}
+
 				<a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
 					<i class="layui-icon">&#xe63c;</i>
 				</a>
+			</td>
 		</tr>
 		{/foreach}
 		</tbody>
@@ -106,6 +116,28 @@
         });
     });
 
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.post("{:url('Personnel/setStatus')}",{id:id});
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="layui-icon">&#xe62f;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="layui-badge">离职</span>');
+            $(obj).remove();
+            layer.msg('已转离职!',{icon: 5,time:1000});
+        });
+    }
+    function member_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.post("{:url('Personnel/setStatus')}",{id:id});
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="layui-icon">&#xe601;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="layui-badge layui-bg-green">在职</span>');
+            $(obj).remove();
+            layer.msg('已转在职!', {icon: 6,time:1000});
+        });
+    }
 </script>
 </body>
 </html>

@@ -51,6 +51,7 @@
             <th>信息类型</th>
             <th>发布时间</th>
             <th>状态</th>
+            <th>浏览量</th>
             <th >操作</th>
         </tr>
         </thead>
@@ -72,6 +73,7 @@
                 {case 2}<span class="layui-btn layui-btn-warm layui-btn-sm">未知</span>{/case}
                 {/switch}
             </td>
+            <td>{$val.count}</td>
             <td class="td-manage">
                 {if $val.state==1}
                 <a onclick="message_stop(this,'{$val.id}')" href="javascript:;" title="关闭">
@@ -99,7 +101,7 @@
     </div>
    {if $count==0}
         <div class="layui-row">
-          <div align="center"> <img src="{:config('static_admin_path')}/images/no_data.jpg"  width=""></div>
+          <div align="center"> <img src="{:config('static_admin_path')}/images/no_data.gif"  width=""></div>
         </div>
    {/if}
 </div>

@@ -104,7 +104,10 @@ class Links extends Base
     //修改
     public function edit()
     {
-
+        $id = Request::param('id');
+        $data=Link::where('id',$id)->find();
+        $this->view->assign('data',$data);
+        return $this->view->fetch('links/index-edit');
     }
 
     //更新
@@ -133,10 +136,10 @@ class Links extends Base
                     $status=0;
                     $result='未作出更改';
                 }else{
-                    if (Link::create([
+                    if (Link::update([
                         'name'=>$data['name'],
                         'link_url'=>$data['link_url'],
-                    ])){
+                    ],['id'=>$data['id']])){
                         $status=1;
                         $result='修改成功';
 

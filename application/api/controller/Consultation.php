@@ -60,6 +60,7 @@ class Consultation extends Controller
             $oid = Request::param('oid');
 
             if(isset($oid)){
+                Informations::where('id',$oid)->setInc('count',1);
                 $data=Informations::where([  ['id','=',$oid], ['state','=',1]  ])->find();
 
                 if(!empty($data)){
@@ -73,6 +74,7 @@ class Consultation extends Controller
                     $upTielt = $upData['info_title'];
 
                     //本条
+                    $count = $data['count'];
                     $info_type = $data['info_type'];
                     $info_abstract = $data['abstract'];
                     $info_title = $data['info_title'];
@@ -80,15 +82,14 @@ class Consultation extends Controller
                     $info_img = $data['info_img'];
                     $create_time = $data['create_time'];
 
-                    $data=compact('info_type','info_title','info_abstract','info_content','info_img','create_time','nextId','nextTielt','upId','upTielt');
+                    $data=compact('count','info_type','info_title','info_abstract','info_content','info_img','create_time','nextId','nextTielt','upId','upTielt');
                 }
             }
 
 
 
-
-
             if (!empty($data)){
+
                 $res = [
                     'code'=>1,
                     'msg'=>'成功',

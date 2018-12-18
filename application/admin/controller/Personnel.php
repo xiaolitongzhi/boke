@@ -38,7 +38,6 @@ class Personnel extends Base
     //添加
     public function create()
     {
-
       return $this->view->fetch('personnel/yuangon-add');
     }
 
@@ -137,8 +136,33 @@ class Personnel extends Base
             return ['status'=>$status,'message'=>$result];
         }
     }
-    //开关
 
 
+    //停用-启用
+    public function setStatus()
+    {
+        if(Request::isPost()){
+            $id=Request::param('id');
+            $state=Staffs::get(['id'=>$id])->getData('state');
+            if ($state==1){
+                if (Staffs::update(['state'=>0],['id'=>$id])){
+                    $status=1;
+                    $result='成功';
+                }else{
+                    $status=0;
+                    $result='失败！';
+                }
+            }else{
+                if (Staffs::update(['state'=>1],['id'=>$id])){
+                    $status=1;
+                    $result='成功';
+                }else{
+                    $status=0;
+                    $result='失败！';
+                }
+            }
+            return['status'=>$status,'message'=>$result];
+        }
+    }
 
 }
