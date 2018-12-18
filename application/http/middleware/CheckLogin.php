@@ -7,7 +7,7 @@ class CheckLogin
     public function handle($request, \Closure $next)
     {
         if (!Session::has('UserName')){
-            return redirect('/admin/Login');
+            return redirect('/login');
         }
         return $next($request);
     }

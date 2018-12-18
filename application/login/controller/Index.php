@@ -6,13 +6,13 @@
  * Time: 10:38
  */
 
-namespace app\admin\controller;
+namespace app\login\controller;
 use app\common\controller\Base;
 use app\common\model\User;
 use think\facade\Request;
 use think\facade\Session;
 
-class Login extends Base
+class Index extends Base
 {
 
     public function index()
