@@ -43,6 +43,15 @@ class Orders extends Base
         return $this->view->fetch('orders/order-index');
     }
 
+    //查看一条订单
+    public function info()
+    {
+        $oid = Request::param('oid');
+        $data=Order::where('oid',$oid)->find();
+        $this->view->assign('data',$data);
+        return $this->view->fetch('orders/order-info');
+    }
+
     //处理中
     public function the_way()
     {

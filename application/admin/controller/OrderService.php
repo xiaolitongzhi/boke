@@ -18,6 +18,12 @@ class OrderService extends Base
     private $service_num = 1001;//获取的技术id
 
 
+    //添加
+    public function create()
+    {
+        return $this->view->fetch('orders/order-add');
+    }
+
     //客服接单
     public function orderTaking()
     {

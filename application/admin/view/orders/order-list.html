@@ -85,7 +85,7 @@
               <span class="layui-badge layui-bg-gray">微信</span>
             </td>
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+              <a title="查看"  onclick="x_admin_show('订单信息','{:url("Orders/info",["oid"=>$v.oid])}')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
               <a title="接单" onclick="receive_order(this,'{$v.oid}')" href="javascript:;">

@@ -26,4 +26,13 @@ class Order extends Model
         return date('Y-m-d H:i',$value);
     }
 
+
+    //关联店铺信息  一对一
+    public function getMendianInfo()
+    {
+        return $this->belongsTo('Mendian', 'brand', 'id');
+    }
+
+    //
+
 }
