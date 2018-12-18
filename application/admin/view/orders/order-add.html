@@ -1,0 +1,359 @@
+{include file="common/meta"}
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">车牌号</label>
+            <div class="layui-input-block">
+                <input type="text" name="plateNumber" lay-verify="required" placeholder="请输入车牌号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">车辆品牌</label>
+                <div class="layui-input-inline">
+                    <select name="brandId" lay-filter="carBrand" lay-skin="select" id="carBrand">
+
+                    </select>
+                </div>
+                <script type="text/html" id="brand">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}" title="{{item.id}}">{{item.brand}}</option>
+                    {{/each}}
+                </script>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">车系</label>
+                <div class="layui-input-inline">
+                    <select name="seriesId" lay-filter="carSeries" id="carSeriesBody">
+
+                    </select>
+                </div>
+                <script type="text/html" id="carSeriesObj">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}" title="{{item.id}}">{{item.seriesName}}</option>
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">车型</label>
+                <div class="layui-input-inline">
+                    <select name="versionId" lay-filter="carVersion" id="carVersionBody">
+                    </select>
+                </div>
+                <script type="text/html" id="carVersionObj">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}" title="{{item.id}}">{{item.vehicle}}</option>
+                    {{/each}}
+                </script>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">排量</label>
+                <div class="layui-input-inline">
+                    <select name="displacementId" lay-filter="outputVolume" id="outputVolumeBody">
+
+                    </select>
+                </div>
+                <script type="text/html" id="outputVolumeObj">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}" title="{{item.id}}">{{item.displacement}}</option>
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">生产年限</label>
+                <div class="layui-input-inline">
+                    <select name="productiveId" lay-filter="productionYear" id="productionYearBody">
+                    </select>
+                </div>
+                <script type="text/html" id="productionYearObj">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}" title="{{item.id}}">{{item.dateProduction}}</option>
+                    {{/each}}
+                </script>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">出厂日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="dateProduction" id="dateProduction" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">预约人姓名</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">选择门店</label>
+                <div class="layui-input-inline">
+                    <select name="shopId" lay-filter="shopId" id="shopBody">
+                    </select>
+                </div>
+                <script type="text/html" id="shopObj">
+                    <option value=""></option>
+                    {{each data item i}}
+                    <option value="{{item.id}}">{{item.name}}</option>
+                    {{/each}}
+                </script>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">服务类型</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="upkeepType" value="1" title="小保养" checked="">
+                    <input type="radio" name="upkeepType" value="2" title="大保养">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">预约时间</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="appointmentTime" id="appointmentTime" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否参与保养计划</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="isBaoYang" value="1" title="参与" checked="">
+                    <input type="radio" name="isBaoYang" value="2" title="不参与"> </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label">
+            </label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">
+                增加
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    /**
+     * 查询所有品牌
+     */
+    $.ajax({
+        type: "post",
+        url: api + "/web/brand/findAll",
+        async: false,
+        cache: false,
+        dataType: "json",
+        success: function(data) {
+            if(data.code == 200) {
+                var html = template('brand', data);
+                document.getElementById('carBrand').innerHTML = html;
+            } else {
+                layer.msg(data.msg);
+            }
+        }
+    });
+    /**
+     * 获取所有店铺
+     */
+
+    $.ajax({
+        type: "post",
+        url: api + "/admin/shop/findAll",
+        async: false,
+        cache: false,
+        dataType: "json",
+        headers: {
+            token: sessionStorage.ADMINUSERSESSION
+        },
+        success: function(data) {
+            if(data.code == 200) {
+                var html = template('shopObj', data);
+                document.getElementById('shopBody').innerHTML = html;
+            } else {
+                layer.msg(data.msg);
+            }
+        }
+    });
+
+    layui.use(['form', 'layer', 'laydate'], function() {
+        $ = layui.jquery;
+        var laydate = layui.laydate;
+        var form = layui.form,
+            layer = layui.layer;
+        //日期时间选择器
+        laydate.render({
+            elem: '#appointmentTime',
+            type: 'datetime'
+        });
+        //年月选择器
+        laydate.render({
+            elem: '#dateProduction',
+            type: 'month'
+        });
+
+        /**
+         * 点击品牌获取车系
+         */
+        form.on('select(carBrand)', function(data) {
+            var id = data.elem[data.elem.selectedIndex].title;
+            if(data.value != "") {
+                $.ajax({
+                    type: "get",
+                    url: api + "/web/series/findAll?brandId=" + id,
+                    async: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.code == 200) {
+                            var html = template('carSeriesObj', data);
+                            document.getElementById('carSeriesBody').innerHTML = html;
+                            form.render('select');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+
+            }
+        });
+
+        /**
+         * 点击车型获取排量
+         */
+        form.on('select(carVersion)', function(data) {
+            var id = data.elem[data.elem.selectedIndex].title;
+            if(data.value != "") {
+                $.ajax({
+                    type: "get",
+                    url: api + "/web/displacement/findAll?vehicleId=" + id,
+                    async: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.code == 200) {
+                            var html = template('outputVolumeObj', data);
+                            document.getElementById('outputVolumeBody').innerHTML = html;
+                            form.render('select');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+
+            }
+        });
+        /**
+         * 点击排量获取生产年限
+         */
+        form.on('select(outputVolume)', function(data) {
+            var id = data.elem[data.elem.selectedIndex].title;
+            if(data.value != "") {
+                $.ajax({
+                    type: "get",
+                    url: api + "/web/productive/findAll?displacementId=" + id,
+                    async: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.code == 200) {
+                            var html = template('productionYearObj', data);
+                            document.getElementById('productionYearBody').innerHTML = html;
+                            form.render('select');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+
+            }
+        });
+        /**
+         * 点击车系获取车型
+         */
+        form.on('select(carSeries)', function(data) {
+            var id = data.elem[data.elem.selectedIndex].title;
+            if(data.value != "") {
+                $.ajax({
+                    type: "get",
+                    url: api + "/web/carVersion/findAll?seriesId=" + id,
+                    async: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.code == 200) {
+                            var html = template('carVersionObj', data);
+                            document.getElementById('carVersionBody').innerHTML = html;
+                            form.render('select');
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+
+            }
+        });
+
+        //监听提交
+        form.on('submit(add)', function(obj) {
+            $.ajax({
+                type: "post",
+                url: api + "/admin/subscribe/add",
+                data: obj.field,
+                async: false,
+                cache: false,
+                headers: {
+                    token: sessionStorage.ADMINUSERSESSION
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    if(data.code == 200) {
+                        layer.alert("增加成功", {
+                            icon: 6
+                        }, function() {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        });
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,375 @@
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+
+            <!--会员管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>会员管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('Users/lists')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>会员列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe726;</i>
+                            <cite>管理员管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>角色管理</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('NodeClass/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>权限分类</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="{:url('Nodes/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>权限管理</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!--订单流水-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe82a;</i>
+                    <cite>订单流水</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('OrderLines/save')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>订单流水</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{:url('OrderLines/index')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>测试详情页</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+
+            <!--库存管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6cb;</i>
+                    <cite>库存管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6ae;</i>
+                            <cite>商品管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Goods/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>商品列表</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Goodshistory/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>出入库记录</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Goods/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>库存报表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6ae;</i>
+                            <cite>分类管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('GoodsClass/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>分类列表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!--店铺管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe722;</i>
+                    <cite>店铺管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('Mendians/lists')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>店铺列表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+            <!--资讯管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe82a;</i>
+                    <cite>资讯管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('Information/lists')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>咨询列表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+            <!--客服订单中心-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe70c;</i>
+                    <cite>订单管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6f6;</i>
+                            <cite>订单池</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Orders/lists')}">
+                                    <i class="iconfont">&#xe724;</i>
+                                    <cite>所有订单</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Orders/index')}">
+                                    <i class="iconfont">&#xe6e9;</i>
+                                    <cite>我的处理</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <!--车辆数据库-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>车辆数据库</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe726;</i>
+                            <cite>全部数据</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Databases/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>车辆列表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe726;</i>
+                            <cite>车医生VIP</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>会员车辆列表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!--技术采购-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ab;</i>
+                    <cite>我的任务</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe709;</i>
+                            <cite>采购</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>订单列表</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>采购清单</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>采购历史</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6e3;</i>
+                            <cite>技术</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>待服务清单</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{:url('Roles/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>历史服务</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!--人事管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe70b;</i>
+                    <cite>人事管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe726;</i>
+                            <cite>部门管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('PersonnelType/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>部门列表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe726;</i>
+                            <cite>员工管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{:url('Personnel/lists')}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>员工列表</cite>
+                                </a>
+                            </li >
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <!--轮播图管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6a8;</i>
+                    <cite>轮播图管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('Slides/lists')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>轮播列表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+            <!--友情链接管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6c0;</i>
+                    <cite>友情链接管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('Links/lists')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>链接列表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- 左侧菜单结束 -->

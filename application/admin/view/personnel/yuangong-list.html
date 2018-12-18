@@ -1,0 +1,143 @@
+{include file="common/meta"}
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('Index/welcome')}">首页</a>
+        <a>
+          <cite>员工列表</cite></a>
+      </span>
+	<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+	<div class="layui-row">
+		<form class="layui-form layui-col-md12 x-so" method="get" action="{:url('Goods/lists')}">
+			<input class="layui-input" placeholder="开始日" name="select_start" id="start">
+			<input class="layui-input" placeholder="截止日" name="select_end" id="end">
+			<div class="layui-input-inline">
+				<select name="contrller">
+					<option>支付状态</option>
+					<option>已支付</option>
+					<option>未支付</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select name="contrller">
+					<option>支付方式</option>
+					<option>支付宝</option>
+					<option>微信</option>
+					<option>货到付款</option>
+				</select>
+			</div>
+			<input type="text" name="search_goods_name"  placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+			<button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+		</form>
+	</div>
+	<xblock>
+		<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+		<button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
+		<span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+	</xblock>
+
+	<table class="layui-table">
+		<thead>
+		<tr>
+			<th>
+				<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+			</th>
+			<th>ID</th>
+			<th>员工编号</th>
+			<th>部门</th>
+			<th>姓名</th>
+
+			<th>电话</th>
+			<th>状态</th>
+			<th>注册时间</th>
+			<th >操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{foreach $data as $k=>$v}
+		<tr>
+			<td>
+				<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+			</td>
+			<td>{$v.id}</td>
+			<td>{$v.number}</td>
+			<td>{$v.type_id}</td>
+			<td>{$v.username}</td>
+			<td>{$v.phone}</td>
+			<td class="td-status">
+				{if $v.state == 1}
+				<span class="layui-badge layui-bg-green">在职</span>
+				{elseif $v.state==0}
+				<span class="layui-badge">离职</span>
+				{/if}
+			</td>>
+
+			<td>{$v.create_time}</td>
+
+			<td class="td-manage">
+				{if $v.state==1}
+				<a onclick="member_stop(this,'{$v.id}')" href="javascript:;" title="转离职">
+					<i class="layui-icon"></i>
+				</a>
+				{else}
+				<a onclick="member_start(this,'{$v.id}')" href="javascript:;"  title="转在职">
+					<i class="layui-icon">&#xe601;</i>
+				</a>
+				{/if}
+
+				<a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+					<i class="layui-icon">&#xe63c;</i>
+				</a>
+			</td>
+		</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	<div class="page">
+		{$data|raw}
+	</div>
+
+</div>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.post("{:url('Personnel/setStatus')}",{id:id});
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_start(this,'+id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="layui-icon">&#xe62f;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="layui-badge">离职</span>');
+            $(obj).remove();
+            layer.msg('已转离职!',{icon: 5,time:1000});
+        });
+    }
+    function member_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            $.post("{:url('Personnel/setStatus')}",{id:id});
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_stop(this,'+id+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="layui-icon">&#xe601;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="layui-badge layui-bg-green">在职</span>');
+            $(obj).remove();
+            layer.msg('已转在职!', {icon: 6,time:1000});
+        });
+    }
+</script>
+</body>
+</html>

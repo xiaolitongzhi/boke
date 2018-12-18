@@ -1,0 +1,61 @@
+{include file="common/meta"}
+<body>
+<div class="x-body layui-anim layui-anim-up">
+    <form class="layui-form">
+        <input type="hidden" name="id" value="{$data['id']}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">链接名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required autocomplete="off" placeholder="请输入链接名" class="layui-input" value="{$data['name']}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">url地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="link_url" required autocomplete="off" placeholder="请输入链接名" class="layui-input" value="{$data['link_url']}">
+            </div>
+        </div>
+
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button  class="layui-btn" lay-filter="add" lay-submit="">提交更新</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            $.ajax({
+                type:"POST",
+                url:"{:url('Links/update')}",
+                data:data.field,
+                dataType:"json",
+                success:function(res){
+                    if(res.status==1){
+                        layer.msg(res.message,{icon:1,time:2000},function () {
+                            window.close();
+                            window.parent.location.reload();
+                        });
+                    }else{
+                        layer.alert(res.message);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

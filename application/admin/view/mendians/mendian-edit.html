@@ -1,0 +1,105 @@
+{include file="common/meta"}
+
+	<body>
+		<div class="x-body">
+			<form class="layui-form" action="" lay-filter="example">
+				<div class="layui-form-item">
+					<label for="shop_name" class="layui-form-label">
+                  <span class="x-red">*</span>门店名称
+              </label>
+					<div class="layui-input-inline">
+						<input type="text" id="shop_name" name="shop_name" required="required" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="shop_address" class="layui-form-label">
+                  <span class="x-red">*</span>门店地址
+              </label>
+					<div class="layui-input-inline">
+						<input type="text" id="shop_address" name="shop_address" required="" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="shop_phone" class="layui-form-label">
+                  <span class="x-red">*</span>联系电话
+              </label>
+					<div class="layui-input-inline">
+						<input type="text" id="shop_phone" name="shop_phone" required="" lay-verify="phone" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label  class="layui-form-label">
+                  <span class="x-red">*</span>状态
+              </label>
+					<div class="layui-input-block">
+						<input type="radio" name="state" value="1" title="正常营业">
+						<input type="radio" name="state" value="2" title="暂停营业">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label  class="layui-form-label">
+                  <span class="x-red">*</span>店铺类型
+              </label>
+					<div class="layui-input-block">
+						<input type="radio" name="category" value="1" title="旗舰店">
+						<input type="radio" name="category" value="2" title="加盟店">
+					</div>
+				</div>
+				<input type="hidden" name="id" id="id" value="" />
+				<div class="layui-form-item">
+					<label  class="layui-form-label">
+              </label>
+					<button class="layui-btn" lay-filter="add" lay-submit="">
+                  保存
+              </button>
+				</div>
+			</form>
+		</div>
+		<script>
+            $("#shop_name").val("{$data.shop_name}");
+            $("#shop_address").val("{$data.shop_address}");
+            $("#shop_phone").val("{$data.shop_phone}");
+            $("input[name='state'][value='" + "{$data.state}" + "']").prop("checked", "checked");
+            $("input[name='category'][value='"+"{$data.category}"+"']").prop("checked", true);
+
+			layui.use(['form', 'layer'], function() {
+				$ = layui.jquery;
+				var form = layui.form,
+					layer = layui.layer;
+				
+
+				//监听提交
+				form.on('submit(add)', function(obj) {
+					$.ajax({
+						type: "post",
+						url: "{:url('Mendians/update',['id'=>$data.id])}",
+						data: obj.field,
+						async: false,
+						cache: false,
+						success: function(data) {
+						    console.log(data)
+							if(data.status == 1) {
+								//发异步，把数据提交给php
+								layer.msg(data.message, {
+									icon: 6
+								}, function() {
+									// 获得frame索引
+									var index = parent.layer.getFrameIndex(window.name);
+									//关闭当前frame
+									parent.layer.close(index);
+									parent.location.reload();
+								});
+							} else {
+								layer.alert(data.message);
+							}
+						}
+					});
+
+					return false;
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,82 @@
+{include file="common/meta"}
+  <body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">请输入</label>
+                <div class="layui-input-block">
+                    <input type="text" name="class_name" required autocomplete="off" placeholder="默认的是最顶级分类" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">请选择</label>
+                <div class="layui-input-block">
+                    <select name="parent_id"  required lay-filter="aihao">
+                        <option value="">--请选择--</option>
+
+                        {foreach $data as $k=>$v}
+                            {if $v.parent_id == 0}
+                            <optgroup label="{$v.class_name}类">
+                            {/if}
+                            <option value="{$v.class_id}">{$v.class_name}</option>
+                            {if $v.parent_id == 0}
+                            </optgroup>
+                            {/if}
+
+                        {/foreach}
+                        <option value="">添加一级分类</option>
+                    </select>
+                </div>
+            </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-block">
+                        <button  class="layui-btn" lay-filter="add" lay-submit="">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+              class_name: function(value){
+              if(value.length < 2){
+                return '分类名至少要填2个字符啊';
+              }
+            }
+          });
+
+          //监听提交
+            form.on('submit(add)', function(data){
+                $.ajax({
+                    type:"POST",
+                    url:"{:url('GoodsClass/save')}",
+                    data:data.field,
+                    dataType:"json",
+                    success:function(res){
+                        if(res.status==1){
+                            layer.msg(res.message,{icon:1,time:2000},function () {
+                                window.close();
+                                window.parent.location.reload();
+                            });
+                        }else{
+                            layer.alert(res.message);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+  </body>
+</html>

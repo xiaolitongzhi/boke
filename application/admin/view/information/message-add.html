@@ -1,0 +1,153 @@
+{include file="common/meta"}
+<script src="{:config('static_admin_path')}/ueditor/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:config('static_admin_path')}/ueditor/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:config('static_admin_path')}/ueditor/lang/zh-cn/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('Index/welcome')}">首页</a>
+        <a href="{:url('Information/lists')}">资讯列表</a>
+        <a>
+          <cite>资讯添加</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <blockquote class="layui-elem-quote layui-text" style="text-align:center;">
+            添加资讯管理内容
+        </blockquote>
+
+        <form class="layui-form" id="create_save" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">信息类别</label>
+                <div class="layui-input-block">
+                    <select name="info_type" lay-filter="aihao">
+                        <option value=""></option>
+                        <option value="实时资讯">实时资讯</option>
+                      
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">信息标题</label>
+                <div class="layui-input-block">
+                    <input name="info_title" lay-verify="info_title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">简介</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入内容" class="layui-textarea" rows="3" name="abstract"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-block">
+
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="info_content" type="text/plain" class="layui-textarea" style="height:400px;z-index: 2;width: 99%;margin: 0 auto;">这里写你的初始化内容</script>
+                    <!-- 实例化编辑器 -->
+                    <script type="text/javascript">
+                    var ue = UE.getEditor('container',{toolbars: [
+                          ['fullscreen', 'source', 'undo', 'redo','date','simpleupload','insertimage','insertvideo','emotion','spechars','backcolor','music','drafts','autotypeset','Iframe'],
+    ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+                        ]});
+                    </script>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">封面图片：</label>
+                <div class="layui-upload">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-danger" id="test1"><i class="layui-icon"></i>上传图片</button>
+                        <div class="layui-inline layui-word-aux">
+                            文件大小限制在 1M 以内，图片比例推荐322×154
+                        </div>
+                        <div class="layui-upload-list" style="margin-left: 120px; ">
+                            <img class="layui-upload-img" id="demo1" style=" width: 322px;height: 154px;">
+                            <input type="hidden" name="info_img" value="" id="demo2">
+                            <p id="demoText"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label  class="layui-form-label"></label>
+                <button  class="layui-btn" lay-filter="add" lay-submit="">
+                    立即发布
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+</div>
+<script>
+    layui.use(['form','upload','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form,
+            upload = layui.upload,
+            layer = layui.layer;
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            $.ajax({
+                type:"POST",
+                url:"{:url('Information/save')}",
+                data:data.field,
+                dataType:"json",
+                success:function(res){
+                    if(res.status==1){
+                        layer.msg(res.message,{icon:1,time:2000},function () {
+                            // window.parent.location.reload();
+                            window.location.replace("{:url('Information/lists')}");//本页面加载
+                        });
+                    }else{
+                        layer.alert(res.message);
+                    }
+                }
+            });
+            return false;
+        });
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1',
+            url:"{:url('Information/receiveFile')}",
+            size: 5120 ,//限制文件大小，单位 KB
+            before: function(obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index,file,result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            },
+            done: function(res) {
+                //如果上传失败
+                if(res.code > 0) {
+                    return layer.msg('上传失败');
+                }
+
+                $('#demo2').attr('value', res.data.src);
+            },
+            error: function() {
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function() {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
