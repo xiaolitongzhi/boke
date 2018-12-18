@@ -148,7 +148,7 @@ return [
     'admin_save_path_get'              => '/static/admin/images/upload/',
 
     //后台文件
-    'static_admin_path' => '/static/admin',
+    'static_admin_path' => '/static/admin/',
   
    	//显示图片路径
     'get_upload'              => '/static/admin/images/upload/',

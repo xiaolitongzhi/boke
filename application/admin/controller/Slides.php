@@ -271,7 +271,7 @@ class Slides extends Base
         $file_path = str_replace("\\","/",$file_path);//替换路径中的反斜线
         //dump(file_exists($file_path));
 
-        $fname = Request::domain().Request::config('admin_save_path_to').Request::config('get_upload').'/slide/'.$fname;//图片路径拼接完整路径
+        $fname = Request::domain().Request::config('admin_save_path_to').Request::config('get_upload').'slide/'.$fname;//图片路径拼接完整路径
         $fname = str_replace("\\","/",$fname);//替换路径中的反斜线
       
         if(file_exists($file_path)){

@@ -47,7 +47,11 @@
             <th>商品编码</th>
             <th>分类</th>
             <th>商品名称</th>
+            <th>图片</th>
+            <th>成本价</th>
+            <th>库存量</th>
             <th>创建时间</th>
+            <th>状态</th>
             <th >操作</th>
             </tr>
         </thead>
@@ -57,9 +61,13 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>{$v.goods_no}</td>
-            <td>{$v.class}</td>
+            <td>{$v.goods_sn}</td>
+            <td>{$v.class_id}</td>
             <td>{$v.goods_name}</td>
+            <td>{$v.goods_img}</td>
+            <td>{$v.cost_price}</td>
+            <td>{$v.stock}</td>
+            <td>{$v.status}</td>
             <td>{$v.create_time}</td>
             <td class="td-manage">
               <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">

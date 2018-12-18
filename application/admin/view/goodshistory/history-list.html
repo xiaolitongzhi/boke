@@ -1,0 +1,108 @@
+{include file="common/meta"}
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('Index/welcome')}">首页</a>
+        <a>
+          <cite>商品列表</cite></a>
+      </span>
+  <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+    <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+  <div class="layui-row">
+    <form class="layui-form layui-col-md12 x-so" method="get" action="{:url('Goods/lists')}">
+      <input class="layui-input" placeholder="开始日" name="select_start" id="start">
+      <input class="layui-input" placeholder="截止日" name="select_end" id="end">
+      <div class="layui-input-inline">
+        <select name="contrller">
+          <option>支付状态</option>
+          <option>已支付</option>
+          <option>未支付</option>
+        </select>
+      </div>
+      <div class="layui-input-inline">
+        <select name="contrller">
+          <option>支付方式</option>
+          <option>支付宝</option>
+          <option>微信</option>
+          <option>货到付款</option>
+        </select>
+      </div>
+      <input type="text" name="search_goods_name"  placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+      <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+    </form>
+  </div>
+  <xblock>
+    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+    <button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
+    <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+  </xblock>
+  <table class="layui-table">
+    <thead>
+    <tr>
+      <th>
+        <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+      </th>
+      <th>商品编码</th>
+      <th>出入库数量</th>
+      <th>操作类型</th>
+      <th>关联订单号</th>
+      <th>经办人</th>
+      <th>出入库状态</th>
+      <th>备注</th>
+      <th >操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $data as $k=>$v}
+    <tr>
+      <td>
+        <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+      </td>
+      <td>{$v.goods_sn}</td>
+      <td>{$v.num}{if $v.direction == 1} <span class="layui-badge">出库</span>{elseif $v.direction==2} <span class="layui-badge layui-bg-green">入库</span>{else}{/if}</td>
+      <td>{$v.operate_type}</td>
+      <td>{$v.order_id}</td>
+      <td>{$v.user_id}</td>
+      <td>
+        {if $v.auditor_state == 1}
+        <span class="layui-badge layui-bg-green">成功</span>
+        {elseif $v.direction==2}
+           <span class="layui-badge">处理中</span>
+        {else}
+          <span class="layui-badge">失败</span>
+        {/if}
+      </td>
+      <td>{$v.content}</td>
+      <td class="td-manage">
+        <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+          <i class="layui-icon">&#xe63c;</i>
+        </a>
+    </tr>
+    {/foreach}
+    </tbody>
+  </table>
+  <div class="page">
+    {$data|raw}
+  </div>
+
+</div>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+
+</script>
+</body>
+</html>

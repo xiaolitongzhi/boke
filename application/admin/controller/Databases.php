@@ -17,8 +17,7 @@ class Databases extends Base
     public function lists()
     {
         $data = CarBase::all();
-
+    return $this->view->fetch('databases/car-list');
     }
-
 
 }

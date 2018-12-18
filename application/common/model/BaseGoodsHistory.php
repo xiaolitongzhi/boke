@@ -1,18 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/12/16
- * Time: 15:17
+ * 商品出入记录表.
+ * User: xiaolitongzhi
+ * Date: 2018-12-13
+ * Time: 23:40
  */
 
 namespace app\common\model;
 use think\Model;
 
-class CarBase extends Model
+class BaseGoodsHistory extends Model
 {
-    protected $pk='car_id';
-    protected $table='base_car_base';
+    protected $pk='record_id';
+    protected $table='base_goods_record';
 
     //开启自动时间戳
     protected $autoWriteTimestamp=true;
