@@ -8,7 +8,11 @@
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
         </div>
         <div class="x-body">
-            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>回收站</button><button class="layui-btn" onclick="x_admin_show('添加用户','{:url("Slides/create")}','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据：{$count} 条</span></xblock>
+            <xblock>
+                <button class="layui-btn layui-btn-danger" onclick="x_admin_show('回收站','{:url("Slides/del_lists")}')"><i class="layui-icon"></i>回收站</button>
+                <button class="layui-btn" onclick="x_admin_show('添加轮播图','{:url("Slides/create")}','600','500')"><i class="layui-icon">&#xe608;</i>添加</button>
+                <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+            </xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
@@ -46,7 +50,7 @@
                             {$v.sort}
                         </td>
                         <td>
-                            <img  src="{$v.image}" width="200" alt="">点击图片试试
+                            <img  src="{$v.image}" height="50" alt="">
                         </td>
                         <td >
                             {$v.target_url}
@@ -75,8 +79,7 @@
                             class="ml-5" style="text-decoration:none">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" href="javascript:;" onclick="banner_del(this,'1')"
-                            style="text-decoration:none">
+                            <a title="删除" onclick="member_del(this,'{$v.id}')" href="javascript:;">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>
@@ -116,12 +119,20 @@
                 });
             }
 
-            /*删除*/
-            function banner_del(obj,id){
-                layer.confirm('确认要删除吗？',function(index){
+            /*轮播图-删除*/
+            function member_del(obj,id){
+                layer.confirm('确认操作吗？',function(index){
                     //发异步删除数据
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
+                    $.post("{:url('Slides/delete')}",{id:id},function (data) {
+                        if(data.status==1){
+                            $(obj).parents("tr").remove();
+                            layer.alert(data.message,{icon:1,time:2000},function () {
+                                window.location.reload();
+                            });
+                        }else{
+                            layer.alert(data.message);
+                        }
+                    });
                 });
             }
             </script>

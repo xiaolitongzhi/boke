@@ -12,6 +12,7 @@ use think\facade\Request;
 
 class Index extends Base
 {
+
     public function index()
     {
         return $this->view->fetch('index/index');

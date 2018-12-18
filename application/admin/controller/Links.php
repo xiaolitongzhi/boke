@@ -102,7 +102,7 @@ class Links extends Base
     }
 
     //修改
-    public function edir()
+    public function edit()
     {
 
     }

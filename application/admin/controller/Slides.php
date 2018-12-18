@@ -36,6 +36,29 @@ class Slides extends Base
         return $this->view->fetch('slide/slide-list');
     }
 
+    //轮播图删除列表
+    public function del_lists()
+    {
+        $arr = [];//接收条件
+        $init_arr = [];//初始值
+        $res_arr = [];//方法返回值
+
+        $arr = array_merge($init_arr,$arr,$res_arr);
+        $data_num_all = Slide::onlyTrashed()->where($init_arr)->select();
+        $data_is	  = Slide::onlyTrashed()->where($arr) -> order('id','asc');
+        $data  		  = $data_is -> paginate(10)->appends(Request::param());
+        if(empty($arr)){
+            $data_num = $data_num_all->count();
+        }else{
+            $data_num = $data_is->count();
+        }
+
+        $this->view->assign('count',$data_num);//传递条数
+        $this->view->assign(['data'=>$data,'count'=>$data_num]);//传递多条
+        return $this->view->fetch('slide/slide-del');
+    }
+
+
     //添加轮播图
     public function create()
     {
@@ -146,6 +169,64 @@ class Slides extends Base
 
     }
 
+    //软删除
+    public function delete()
+    {
+        if (Request::isPost()){
+
+            $id=Request::param('id');
+
+            if (Slide::destroy($id)){
+                $status=1;
+                $result='删除成功';
+            }else{
+                $status=0;
+                $result='删除失败，刷新页面重试！';
+            }
+            return ['status'=>$status,'message'=>$result];
+        }
+    }
+
+    //彻底删除
+    public function deleteTrue()
+    {
+        if (Request::isPost()){
+
+            $id=Request::param('id');
+
+            $slide = Slide::onlyTrashed()->find($id);
+            $slide->restore();
+           $res =$slide->destroy($id,true);
+            if ($res){
+                $status=1;
+                $result='删除成功';
+            }else{
+                $status=0;
+                $result='删除失败，刷新页面重试！';
+            }
+            return ['status'=>$status,'message'=>$result];
+        }
+    }
+
+
+    //恢复
+    public function recovery()
+    {
+        if(Request::isPost()){
+            $slide =new Slide();
+            $id=Request::param('id');
+            $res = $slide->restore(['id' => $id]);
+            if ($res){
+                $status=1;
+                $result='恢复成功';
+            }else{
+                $status=0;
+                $result='恢复失败！';
+            }
+            return ['status'=>$status,'message'=>$result];
+        }
+    }
+
     //停用-启用
     public function setStatus()
     {
@@ -190,7 +271,7 @@ class Slides extends Base
         $file_path = str_replace("\\","/",$file_path);//替换路径中的反斜线
         //dump(file_exists($file_path));
 
-        $fname = Request::domain().Request::config('admin_save_path_to').Request::config('git_upload').'/slide/'.$fname;//图片路径拼接完整路径
+        $fname = Request::domain().Request::config('admin_save_path_to').Request::config('get_upload').'/slide/'.$fname;//图片路径拼接完整路径
         $fname = str_replace("\\","/",$fname);//替换路径中的反斜线
       
         if(file_exists($file_path)){
