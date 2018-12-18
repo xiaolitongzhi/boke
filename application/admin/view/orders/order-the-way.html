@@ -1,0 +1,188 @@
+{include file="common/meta"}
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('Index/welcome')}">首页</a>
+        <a href="{:url('Orders/index')}">我的处理</a>
+        <a>
+          <cite>处理中列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+          <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end">
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option>支付状态</option>
+              <option>已支付</option>
+              <option>未支付</option>
+            </select>
+          </div>
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option>支付方式</option>
+              <option>支付宝</option>
+              <option>微信</option>
+              <option>货到付款</option>
+            </select>
+          </div>
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option value="">订单状态</option>
+              <option value="0">待确认</option>
+              <option value="1">已确认</option>
+              <option value="2">已收货</option>
+              <option value="3">已取消</option>
+              <option value="4">已完成</option>
+              <option value="5">已作废</option>
+            </select>
+          </div>
+          <input type="text" name="username"  placeholder="请输入订单号" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <a href="{:url('Orders/index')}" class="layui-btn layui-btn-danger"><i class="layui-icon"></i>未处理</a>
+        <a href="{:url('Orders/history')}" class="layui-btn layui-btn-normal"><i class="layui-icon"></i>已处理</a>
+        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>订单编号</th>
+            <th><i class="iconfont">&#xe732;</i>  客户信息</th>
+            <th><i class="iconfont">&#xe6e3;</i>  车辆信息</th>
+            <th><i class="iconfont">&#xe722;</i>  服务店</th>
+
+            <th><i class="iconfont">&#xe6c7;</i>  客服</th>
+            <th><i class="iconfont">&#xe6b8;</i>  采购</th>
+            <th><i class="iconfont">&#xe6b8;</i>  技术</th>
+            <th><i class="iconfont">&#xe829;</i>  时间</th>
+            <th><i class="iconfont">&#xe69b;</i>  订单备注</th>
+            <th >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>2017009171822298053</td>
+            <td>老王:18925139194</td>
+            <td>奥迪【豫A88888】</td>
+
+            <td>北环路金平店</td>
+
+            <td>
+              <!--客服状态-->
+              <span class="layui-badge layui-bg-black">1001</span><br>
+              <span class="layui-badge">未处理0</span>
+              <!--<span class="layui-badge">电话未拨通1</span>-->
+              <!--<span class="layui-badge">再沟通2</span>-->
+              <!--<span class="layui-badge layui-bg-orange">已联系3</span>-->
+              <!--<span class="layui-badge layui-bg-orange">指派采购4</span>-->
+              <!--<span class="layui-badge layui-bg-orange">指派技术5</span>-->
+              <!--<span class="layui-badge layui-bg-orange">指派完成6</span>-->
+              <!--<span class="layui-badge layui-bg-blue">指派结束7</span>-->
+              <!--<span class="layui-badge layui-bg-blue">正在服务8</span>-->
+              <!--<span class="layui-badge layui-bg-blue">客服结束9</span>-->
+            </td>
+            <td>
+              <!--采购状态-->
+              <span class="layui-badge layui-bg-gray">未指派</span>
+              <span class="layui-badge layui-bg-black">金鑫</span><br>
+              <span class="layui-badge">未接单0</span>
+              <!--<span class="layui-badge layui-bg-orange">已经接单，备货中1</span>-->
+              <!--<span class="layui-badge">有问题待处理2</span>-->
+              <!--<span class="layui-badge layui-bg-orange">问题已处理，备货中3</span>-->
+              <!--<span class="layui-badge layui-bg-blue">备货完成4</span>-->
+            </td>
+            <td>
+              <!--采购状态-->
+              <span class="layui-badge layui-bg-gray">未指派</span>
+              <span class="layui-badge layui-bg-black">家宝</span><br>
+              <span class="layui-badge">未接单0</span>
+              <!--<span class="layui-badge layui-bg-orange">已经接单，准备中1</span>-->
+              <!--<span class="layui-badge">有问题待处理2</span>-->
+              <!--<span class="layui-badge layui-bg-orange">问题已处理，待服务3</span>-->
+              <!--<span class="layui-badge layui-bg-blue">备货完成4</span>-->
+            </td>
+
+
+            <td>
+              下单：2017-08-17 18:22<br>
+              服务：2017-08-17 18:22
+            </td>
+            <td style="width: 180px;"><span style=" word-wrap: break-word;
+word-break: normal; "><p>新客服需要沟通，引导加入车医生新客服需要沟通，引导加入车医生新客服需要沟通，引导加入车医生新客服需要沟通，引导加入车医生新客服需要沟通，引导加入车医生新客服需要沟通，引导加入车医生</p></span></td>
+
+            <td class="td-manage">
+              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+                <i class="layui-icon">&#xe63c;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="page">
+        <div>
+          <a class="prev" href="">&lt;&lt;</a>
+          <a class="num" href="">1</a>
+          <span class="current">2</span>
+          <a class="num" href="">3</a>
+          <a class="num" href="">489</a>
+          <a class="next" href="">&gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+
+       /*用户-停用*/
+      function member_stop(obj,id){
+          layer.confirm('确认要停用吗？',function(index){
+
+              if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+              }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+              }
+              
+          });
+      }
+
+    </script>
+  </body>
+
+</html>

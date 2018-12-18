@@ -1,0 +1,73 @@
+{include file="common/meta"}
+<body>
+<div class="x-body layui-anim layui-anim-up">
+	<form class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">部门名称</label>
+			<div class="layui-input-block">
+				<input type="text" name="type_name" required autocomplete="off" placeholder="默认的是最顶级分类" class="layui-input">
+			</div>
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">请选择</label>
+			<div class="layui-input-block">
+				<select name="parent_id"  required lay-filter="">
+					<option value="">--请选择--</option>
+					<option value="">顶级部门</option>
+					{foreach $data as $k=>$v}
+					{if $v.parent_id == 0}
+					<optgroup label="{$v.type_name}">
+						{/if}
+						<option value="{$v.id}">{$v.type_name}</option>
+						{if $v.parent_id == 0}
+					</optgroup>
+					{/if}
+
+					{/foreach}
+
+				</select>
+			</div>
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label"></label>
+			<div class="layui-input-block">
+				<button  class="layui-btn" lay-filter="add" lay-submit="">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            $.ajax({
+                type:"POST",
+                url:"{:url('PersonnelType/save')}",
+                data:data.field,
+                dataType:"json",
+                success:function(res){
+                    if(res.status==1){
+                        layer.msg(res.message,{icon:1,time:2000},function () {
+                            window.close();
+                            window.parent.location.reload();
+                        });
+                    }else{
+                        layer.alert(res.message);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

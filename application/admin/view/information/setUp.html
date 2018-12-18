@@ -1,0 +1,95 @@
+{include file="common/meta"}
+  <body>
+    <div class="x-body">
+      <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+          <li class="layui-this">状态管理</li>
+          <li>其他管理</li>
+        </ul>
+      <div class="layui-tab-content" style="">
+        <div class="layui-tab-item layui-show">
+           <form class="layui-form" id="state_form_default">
+            <!-- {:token()} -->
+            <input type="hidden" name="id" value="{$data.id}">
+            <div class="layui-form-item">
+			    <label class="layui-form-label">请选择</label>
+			    <div class="layui-input-block">
+			      <input name="default" title="关闭"  {if $data.default == 0 }checked=""{/if} type="radio" value="0"><div class="layui-unselect layui-form-radio layui-form-checked"><span>关闭</span><i class="layui-icon layui-icon-ok"></i></div>
+			      <input name="default" title="显示"  {if $data.default == 1 }checked=""{/if} type="radio" value="1"><div class="layui-unselect layui-form-radio layui-form-checked"><span>显示</span><i class="layui-icon layui-icon-ok"></i></div>
+			      <input name="default" title="推荐栏"  {if $data.default == 2 }checked=""{/if} type="radio" value="2"><div class="layui-unselect layui-form-radio"><span>推荐栏</span><i class="layui-icon layui-icon-ok"></i></div>
+			    </div>
+			</div>
+
+
+
+          </form>
+          <div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button  class="layui-btn" onclick="state_form_default()" lay-filter="demo1">立即提交</button>
+		    </div>
+		  </div>       
+        </div>
+
+        <div class="layui-tab-item">
+          <form class="layui-form" id="balance_edit_form">
+            {:token()}
+
+
+
+
+
+
+          </form>
+           <!--  <div style="margin-left: 30px">
+                <button  class="layui-btn" onclick="balance_edit()">
+                    确定
+                </button>
+            </div> -->
+        </div>
+      </div>
+  </div>
+        
+          
+          
+    </div>
+    <script>
+    	//修改状态
+      function state_form_default() {
+          $.ajax({
+              type:"POST",
+              url:"{:url('Information/setUpEdit')}",
+              data:$("#state_form_default").serialize(),
+              dataType:"json",
+              success:function(data){
+                  if(data.status==1){
+                      layer.msg(data.message,{icon:1,time:2000},function () {
+                          window.parent.location.reload();
+                      });
+                  }else{
+                      layer.alert(data.message);
+                  }
+              }
+          });
+      }
+      
+      function balance_edit() {
+          $.ajax({
+              type:"POST",
+              url:"{:url('user/userMoneySave')}",
+              data:$("#balance_edit_form").serialize(),
+              dataType:"json",
+              success:function(data){
+                  if(data.status==1){
+                      layer.msg(data.message,{icon:1,time:2000},function () {
+                          window.parent.location.reload();
+                      });
+                  }else{
+                      layer.alert(data.message);
+                  }
+              }
+          });
+      }
+    </script>
+  </body>
+
+</html>

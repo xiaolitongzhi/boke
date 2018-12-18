@@ -1,0 +1,133 @@
+{include file="common/meta"}
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('Index/welcome')}">首页</a>
+        <a href="{:url('Orders/index')}">我的处理</a>
+        <a>
+          <cite>已完成列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+          <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end">
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option>支付状态</option>
+              <option>已支付</option>
+              <option>未支付</option>
+            </select>
+          </div>
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option>支付方式</option>
+              <option>支付宝</option>
+              <option>微信</option>
+              <option>货到付款</option>
+            </select>
+          </div>
+          <div class="layui-input-inline">
+            <select name="contrller">
+              <option value="">订单状态</option>
+              <option value="0">待确认</option>
+              <option value="1">已确认</option>
+              <option value="2">已收货</option>
+              <option value="3">已取消</option>
+              <option value="4">已完成</option>
+              <option value="5">已作废</option>
+            </select>
+          </div>
+          <input type="text" name="username"  placeholder="请输入订单号" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <a href="{:url('Orders/index')}" class="layui-btn layui-btn-danger"><i class="layui-icon"></i>未处理</a>
+        <a href="{:url('Orders/the_way')}" class="layui-btn layui-btn-warm"><i class="layui-icon"></i>处理中</a>
+        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>订单编号</th>
+            <th><i class="iconfont">&#xe732;</i>  客户信息</th>
+            <th><i class="iconfont">&#xe6e3;</i>  车辆信息</th>
+            <th><i class="iconfont">&#xe722;</i>  服务店</th>
+            <th><i class="iconfont">&#xe6c7;</i>  客服</th>
+            <th><i class="iconfont">&#xe6b8;</i>  采购</th>
+            <th><i class="iconfont">&#xe6b8;</i>  技术</th>
+            <th>订单状态</th>
+            <th>付款状态</th>
+            <th><i class="iconfont">&#xe829;</i>  时间</th>
+            <th >操作</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>2017009171822298053  </td>
+            <td>老王:18925139194 </td>
+            <td>奥迪【豫A88888】</td>
+            <td>北环路金平店</td>
+
+
+            <td>杨林</td>
+            <td>金鑫</td>
+            <td>家宝</td>
+            <td>其他方式</td>
+            <td>
+              250.00元
+              <span class="layui-badge">未付款</span>
+              <!--<span class="layui-badge layui-bg-blue">已付款</span>-->
+              <!--<span class="layui-badge layui-bg-gray">微信</span>-->
+              <!--<span class="layui-badge">查账</span>-->
+            </td>
+            <td>2017-08-17 18:22</td>
+            <td class="td-manage">
+              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+                <i class="layui-icon">&#xe63c;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="page">
+        <div>
+          <a class="prev" href="">&lt;&lt;</a>
+          <a class="num" href="">1</a>
+          <span class="current">2</span>
+          <a class="num" href="">3</a>
+          <a class="num" href="">489</a>
+          <a class="next" href="">&gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,135 @@
+{include file="common/meta"}
+    <body>
+        <div class="x-body">
+            <form class="layui-form">
+
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" style="">图片：</label>
+                    <div class="layui-upload">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn layui-btn-danger" id="test1"><i class="layui-icon"></i>上传图片</button>
+                            <div class="layui-inline layui-word-aux">
+                                文件大小限制在 1M 以内，图片比例推荐200×100
+                            </div>
+                            <div class="layui-upload-list" style="">
+                                <label  class="layui-form-label">缩略图
+                                </label>
+                                <img class="layui-upload-img" id="demo1" style=" width: 200px;height: 100px;" src="">
+                                <input type="hidden" name="image" value="" id="demo2">
+                                <p id="demoText"></p>
+                                <div class="layui-form-item">
+                                    <label  class="layui-form-label">
+                                    </label>
+                                    （由于服务器资源有限，所以此处每次给你返回的是同一张图片)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label for="target_url" class="layui-form-label">
+                        <span class="x-red">*</span>链接
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="target_url" name="target_url" required="" lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="describe" class="layui-form-label">
+                        <span class="x-red">*</span>描述
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="describe" name="describe" required="" lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="add" lay-submit="">
+                        增加
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+    </body>
+
+<script>
+    layui.use(['form','upload','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form,
+            upload = layui.upload,
+            layer = layui.layer;
+
+
+        //数据提交
+        form.on('submit(add)', function(data){
+            $.ajax({
+                type:"POST",
+                url:"{:url('Slides/save')}",
+                data:data.field,
+                dataType:"json",
+                success:function(res){
+                    if(res.status==1){
+                        layer.msg(res.message,{icon:1,time:2000},function () {
+                            window.close();
+                            window.parent.location.reload();
+                        });
+                    }else{
+                        layer.alert(res.message);
+                    }
+                }
+            });
+            return false;
+        });
+
+        //普通图片上传
+        var uploadInst = upload.render({
+                elem: '#test1',
+                url:"{:url('Slides/receiveFile')}",
+
+            size: 1024 //限制文件大小，单位 KB
+            ,
+            before: function(obj) {
+
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result) {
+                $('#demo1').attr('src', result); //图片链接（base64）
+            });
+        },
+        done: function(res) {
+            //如果上传失败
+            if(res.code > 0) {
+                return layer.msg('上传失败');
+            }else{
+
+                $('#demo2').attr('value', res.data.src); //后台传送（base64）
+                return layer.msg('图片上传成功');
+            }
+            //上传成功
+        },
+        error: function() {
+            // {code=0
+            // msg="xioi"
+            // src =url
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function() {
+                uploadInst.upload();
+            });
+        }
+    });
+    });
+</script>
+</html>
